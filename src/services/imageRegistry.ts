@@ -76,7 +76,7 @@ export const designerImages: Record<string, ImageRecord> = {
 export const movementImages: Record<string, ImageRecord> = {
   'arts-crafts': local('arts-crafts.jpg', 'Arts and Crafts'),
   'bauhaus': local('bauhaus.jpg', 'Bauhaus'),
-  'modernism': local('modernism.jpg', 'Modernism'),
+  'modernism': local('modenism.jpg', 'Modernism'),
   'mid-century-modern': local('mid-century-modern.jpg', 'Mid-Century Modern'),
   'scandinavian-modern': local('scandinavian-modern.jpg', 'Scandinavian Modern'),
   'italian-radical-design': local('italian-radical-design.jpg', 'Italian Radical Design'),
