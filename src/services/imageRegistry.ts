@@ -67,23 +67,23 @@ export const designerImages: Record<string, ImageRecord> = {
   'florence-knoll': local('Florence Knoll.jpg', 'Florence Knoll'),
   'harry-bertoia': local('Harry Bertoia.jpg', 'Harry Bertoia'),
   'marcel-breuer': local('Marcel Breuer.jpeg', 'Marcel Breuer'),
-  'le-corbusier': missing('Adicionar imagem: Le Corbusier'),
-  'mies-van-der-rohe': missing('Adicionar imagem: Ludwig Mies van der Rohe'),
+  'le-corbusier': local('le-corbusier.jpg', 'Le Corbusier'),
+  'mies-van-der-rohe': local('mies-van-der-rohe.jpg', 'Ludwig Mies van der Rohe'),
 };
 
 // ─────────────────────────────────────────────────────────────
 // MOVEMENTS
 // ─────────────────────────────────────────────────────────────
 export const movementImages: Record<string, ImageRecord> = {
-  'arts-crafts': missing('Adicionar imagem: Arts & Crafts'),
-  'bauhaus': missing('Adicionar imagem: Bauhaus'),
-  'modernism': missing('Adicionar imagem: Modernism'),
-  'mid-century-modern': missing('Adicionar imagem: Mid-Century Modern'),
-  'scandinavian-modern': missing('Adicionar imagem: Scandinavian Modern'),
-  'italian-radical-design': missing('Adicionar imagem: Italian Radical Design'),
-  'memphis-milano': missing('Adicionar imagem: Memphis Milano'),
-  'minimalism': missing('Adicionar imagem: Minimalism'),
-  'contemporary-design': missing('Adicionar imagem: Contemporary Design'),
+  'arts-crafts': local('arts-crafts.jpg', 'Arts and Crafts'),
+  'bauhaus': local('bauhaus.jpg', 'Bauhaus'),
+  'modernism': local('modernism.jpg', 'Modernism'),
+  'mid-century-modern': local('mid-century-modern.jpg', 'Mid-Century Modern'),
+  'scandinavian-modern': local('scandinavian-modern.jpg', 'Scandinavian Modern'),
+  'italian-radical-design': local('italian-radical-design.jpg', 'Italian Radical Design'),
+  'memphis-milano': local('memphis-milano.jpg', 'Memphis Milano'),
+  'minimalism': local('minimalism-movement.webp', 'Minimalism'),
+  'contemporary-design': local('contemporary-design.jpg', 'Contemporary Design'),
 };
 
 // ─────────────────────────────────────────────────────────────
