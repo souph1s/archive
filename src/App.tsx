@@ -68,7 +68,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       style={{ position: 'fixed', inset: 0, background: '#0A0A0A', zIndex: 9000, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '36px 40px' }}
     >
       <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', letterSpacing: '0.2em', color: '#FF4D00' }}>
-        FORM & IDEA — DIGITAL EXHIBITION
+        ARCHIVE — DIGITAL EXHIBITION
       </div>
       <div>
         <div style={{ overflow: 'hidden' }}>
@@ -558,7 +558,7 @@ function FooterChapter() {
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '10vh' }}>
         <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(10,10,10,0.45)', lineHeight: 1.8 }}>
-          © FORM & IDEA — {new Date().getFullYear()}<br />DIGITAL EXHIBITION OF INDUSTRIAL DESIGN
+          © ARCHIVE — {new Date().getFullYear()}<br />DIGITAL EXHIBITION OF INDUSTRIAL DESIGN
         </div>
         <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 'clamp(30px, 7vw, 100px)', letterSpacing: '-0.04em', color: '#0A0A0A', opacity: 0.12, lineHeight: 1 }}>F&I</div>
       </div>

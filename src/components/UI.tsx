@@ -53,7 +53,7 @@ export function Nav() {
         onClick={() => navigate('/')}
         style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', letterSpacing: '0.2em', color: '#F5F5F0', cursor: 'none' }}
       >
-        FORM & IDEA
+        ARCHIVE
       </span>
       <div style={{ display: 'flex', gap: '32px' }}>
         {links.map(l => (
