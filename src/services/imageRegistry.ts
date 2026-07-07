@@ -34,22 +34,22 @@ const local = (file: string, alt: string, credit = 'Local image'): ImageRecord =
 // ARTIFACTS
 // ─────────────────────────────────────────────────────────────
 export const artifactImages: Record<string, ImageRecord> = {
-  'eames-lounge-chair': missing('Adicionar imagem: Eames Lounge Chair'),
-  'barcelona-chair': missing('Adicionar imagem: Barcelona Chair'),
-  'wassily-chair': missing('Adicionar imagem: Wassily Chair'),
-  'egg-chair': missing('Adicionar imagem: Egg Chair'),
-  'panton-chair': missing('Adicionar imagem: Panton Chair'),
-  'tulip-chair': missing('Adicionar imagem: Tulip Chair'),
-  'wishbone-chair': missing('Adicionar imagem: Wishbone Chair'),
-  'arco-lamp': missing('Adicionar imagem: Arco Lamp'),
-  'noguchi-table': missing('Adicionar imagem: Noguchi Coffee Table'),
-  'tulip-table': missing('Adicionar imagem: Tulip Table'),
-  'diamond-chair': missing('Adicionar imagem: Diamond Chair'),
-  'series-7-chair': missing('Adicionar imagem: Series 7 Chair'),
-  'cesca-chair': missing('Adicionar imagem: Cesca Chair'),
-  'togo-sofa': missing('Adicionar imagem: Togo Sofa'),
-  'lc2-sofa': missing('Adicionar imagem: LC2 Petit Confort'),
-  'platner-table': missing('Adicionar imagem: Platner Coffee Table'),
+  'eames-lounge-chair': local('eames-lounge-chair.jpg', 'Eames Lounge Chair'),
+  'barcelona-chair': local('barcelona-chair.jpg', 'Barcelona Chair'),
+  'wassily-chair': local('wassily-chair.jpeg', 'Wassily Chair'),
+  'egg-chair': local('egg-chair.jpg', 'Egg Chair'),
+  'panton-chair': local('panton-chair.webp', 'Panton Chair'),
+  'tulip-chair': local('tulip-chair.jpg', 'Tulip Chair'),
+  'wishbone-chair': local('wishbone-chair.webp', 'Wishbone Chair'),
+  'arco-lamp': local('arco-lamp.jpg', 'Arco Lamp'),
+  'noguchi-table': local('noguchi-table.webp', 'Noguchi Coffee Table'),
+  'tulip-table': local('tulip-table.webp', 'Tulip Table'),
+  'diamond-chair': local('diamond-chair.jpg', 'Diamond Chair'),
+  'series-7-chair': local('series-7-chair.ashx', 'Series 7 Chair'),
+  'cesca-chair': local('cesca-chair.jpeg', 'Cesca Chair'),
+  'togo-sofa': local('togo-sofa.webp', 'Togo Sofa'),
+  'lc2-sofa': local('lc2-sofa.webp', 'LC2 Petit Confort'),
+  'platner-table': local('platner-table.jpeg', 'Platner Coffee Table'),
 };
 
 // ─────────────────────────────────────────────────────────────

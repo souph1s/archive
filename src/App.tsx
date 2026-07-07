@@ -272,7 +272,6 @@ function QuoteChapter({ quote, index }: { quote: typeof QUOTES[0]; index: number
         QUOTE — {String(index + 1).padStart(2, '0')}
       </motion.div>
 
-      <div style={{ overflow: 'hidden', maxWidth: '88%' }}>
         {quote.text.split('\n').map((line, i) => (
           <motion.div key={i}
             initial={{ y: '110%', opacity: 0 }}
@@ -283,7 +282,6 @@ function QuoteChapter({ quote, index }: { quote: typeof QUOTES[0]; index: number
             {line}
           </motion.div>
         ))}
-      </div>
 
       <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.5, duration: 0.8 }}
         style={{ marginTop: '56px', display: 'flex', alignItems: 'center', gap: '18px' }}>
