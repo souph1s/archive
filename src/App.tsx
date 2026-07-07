@@ -42,7 +42,7 @@ const QUOTES = [
   { text: 'Less, but better.', author: 'Dieter Rams' },
   { text: 'The details are not the details.\nThey make the design.', author: 'Charles Eames' },
   { text: 'A chair is not finished until\nsomebody sits in it.', author: 'Hans Wegner' },
-  { text: 'The role of the designer is that of\na good, thoughtful host.', author: 'Charles Eames' },
+  { text: 'The role of the designer is that of a good, thoughtful host, anticipating the needs of his guests.', author: 'Charles Eames' },
   { text: 'Everything is sculpture.', author: 'Isamu Noguchi' },
 ];
 
