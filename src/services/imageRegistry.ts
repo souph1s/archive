@@ -90,14 +90,14 @@ export const movementImages: Record<string, ImageRecord> = {
 // MATERIALS
 // ─────────────────────────────────────────────────────────────
 export const materialImages: Record<string, ImageRecord> = {
-  'molded-plywood': missing('Adicionar imagem: Molded Plywood'),
-  'tubular-steel': missing('Adicionar imagem: Tubular Steel'),
-  'fiberglass': missing('Adicionar imagem: Fiberglass'),
-  'leather': missing('Adicionar imagem: Leather'),
-  'polypropylene': missing('Adicionar imagem: Polypropylene'),
-  'marble': missing('Adicionar imagem: Marble'),
-  'bentwood': missing('Adicionar imagem: Bentwood'),
-  'aluminum': missing('Adicionar imagem: Aluminum'),
+  'molded-plywood': local('molded-plywood.jpg', 'Molded Plywood'),
+  'tubular-steel': local('tubular-steel.avif', 'Tubular Steel'),
+  'fiberglass': local('fiberglass.webp', 'Fiberglass'),
+  'leather': local('leather.jpg', 'Leather'),
+  'polypropylene': local('polypropylene.webp', 'Polypropylene'),
+  'marble': local('marble.jpg', 'Marble'),
+  'bentwood': local('bentwood.jpg', 'Bentwood'),
+  'aluminum': local('aluminum.jpeg', 'Aluminum'),
 };
 
 export const missingImageChecklist = {
