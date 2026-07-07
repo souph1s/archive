@@ -22,7 +22,6 @@ export interface ImageRecord {
   gallery?: Array<{ source: ImageSource; file?: string; alt: string; credit?: string }>;
 }
 
-const missing = (alt: string): ImageRecord => ({ source: 'placeholder', alt });
 const local = (file: string, alt: string, credit = 'Local image'): ImageRecord => ({
   source: 'local',
   file,

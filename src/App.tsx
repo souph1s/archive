@@ -541,6 +541,11 @@ function ArchiveNav() {
 // ─────────────────────────────────────────────────────────────
 function FooterChapter() {
   const navigate = useNavigate();
+  const credits = [
+    { label: 'LINKEDIN', href: 'https://www.linkedin.com/in/sophiamuraro/' },
+    { label: 'PORTFOLIO', href: 'https://sophiamuraro.com/' },
+  ];
+
   return (
     <section style={{ background: '#FF4D00', minHeight: '60vh', padding: '12vh 6vw', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <div>
@@ -556,9 +561,24 @@ function FooterChapter() {
           </motion.div>
         </motion.div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '10vh' }}>
-        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(10,10,10,0.45)', lineHeight: 1.8 }}>
-          © ARCHIVE — {new Date().getFullYear()}<br />DIGITAL EXHIBITION OF INDUSTRIAL DESIGN
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '32px', marginTop: '10vh', flexWrap: 'wrap' }}>
+        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(10,10,10,0.45)', lineHeight: 1.8, maxWidth: '620px' }}>
+          © ARCHIVE — {new Date().getFullYear()}<br />DIGITAL EXHIBITION OF INDUSTRIAL DESIGN<br />
+          <span style={{ color: '#0A0A0A' }}>CREATED BY SOPHIA MURARO</span>
+          <span style={{ color: 'rgba(10,10,10,0.28)' }}> — </span>
+          {credits.map((credit, index) => (
+            <React.Fragment key={credit.label}>
+              <a
+                href={credit.href}
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: '#0A0A0A', textDecoration: 'none', cursor: 'none' }}
+              >
+                {credit.label}
+              </a>
+              {index < credits.length - 1 && <span style={{ color: 'rgba(10,10,10,0.28)' }}> / </span>}
+            </React.Fragment>
+          ))}
         </div>
         <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 'clamp(30px, 7vw, 100px)', letterSpacing: '-0.04em', color: '#0A0A0A', opacity: 0.12, lineHeight: 1 }}>F&I</div>
       </div>

@@ -84,7 +84,6 @@ export function MovementPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const movement = getMovementById(id || '');
-  const heroImage = useMovementImage(id || '');
   const gallery = useMovementGallery(id || '');
 
   if (!movement) return (

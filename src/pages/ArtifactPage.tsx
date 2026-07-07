@@ -1,6 +1,5 @@
-import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { getArtifactById, artifacts } from '../data/artifacts';
 import { BackBtn, Marquee, SectionLabel, Tag, RelatedCard } from '../components/UI';
 import MuseumImage, { MuseumGallery } from '../components/MuseumImage';
