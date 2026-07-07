@@ -3,11 +3,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { movements, getMovementById } from '../data/movements';
 import { artifacts } from '../data/artifacts';
+import MuseumImage, { MuseumGallery } from '../components/MuseumImage';
+import { useMovementImage, useMovementGallery } from '../hooks/useImage';
+import { imageService } from '../services/imageService';
 import { BackBtn, Marquee, SectionLabel, RelatedCard } from '../components/UI';
 
 // ── INDEX ─────────────────────────────────────────────────
 export function MovementsIndex() {
   const navigate = useNavigate();
+  React.useEffect(() => {
+    imageService.prefetch('movement', movements.map(m => m.id));
+  }, []);
   return (
     <div style={{ background: '#0A0A0A', minHeight: '100vh' }}>
       <section style={{ padding: '18vh 6vw 8vh', position: 'relative', overflow: 'hidden' }}>
@@ -22,33 +28,54 @@ export function MovementsIndex() {
         </motion.div>
       </section>
 
-      <div style={{ padding: '0 6vw 14vh', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2px' }}>
+      <div style={{ padding: '0 6vw 14vh', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2px' }}>
         {movements.map((m, i) => (
-          <motion.div
-            key={m.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.06, duration: 0.6 }}
-            onClick={() => navigate(`/movements/${m.id}`)}
-            whileHover={{ scale: 1.02 }}
-            style={{ background: m.color, padding: '40px 32px', cursor: 'none', position: 'relative', overflow: 'hidden', minHeight: '280px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
-          >
-            <div style={{ position: 'absolute', top: '-20px', right: '-10px', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '110px', lineHeight: 1, color: 'transparent', WebkitTextStroke: `1px ${m.accent}15`, letterSpacing: '-0.06em', pointerEvents: 'none' }}>
-              {m.period.split('–')[0].split('—')[0].trim()}
-            </div>
-            <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', letterSpacing: '0.2em', color: `${m.accent}80`, marginBottom: '12px' }}>
-              {m.period} — {m.origin}
-            </div>
-            <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 3vw, 32px)', letterSpacing: '-0.03em', color: m.accent, lineHeight: 1.05, marginBottom: '12px' }}>
-              {m.name}
-            </div>
-            <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '13px', lineHeight: 1.5, color: `${m.accent}70`, fontWeight: 300 }}>
-              {m.tagline}
-            </div>
-          </motion.div>
+          <MovementCard key={m.id} movement={m} index={i} onClick={() => navigate(`/movements/${m.id}`)} />
         ))}
       </div>
     </div>
+  );
+}
+
+function MovementCard({ movement: m, index: i, onClick }: { movement: typeof movements[0]; index: number; onClick: () => void }) {
+  const img = useMovementImage(m.id);
+  const [hovered, setHovered] = React.useState(false);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: i * 0.06, duration: 0.6 }}
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      whileHover={{ scale: 1.02 }}
+      style={{ position: 'relative', overflow: 'hidden', minHeight: '320px', cursor: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
+    >
+      {/* Background image */}
+      <div style={{ position: 'absolute', inset: 0 }}>
+        <MuseumImage image={img} aspect="auto" fit="cover" accentColor={m.color}
+          style={{ width: '100%', height: '100%', aspectRatio: 'unset', position: 'absolute', inset: 0 }} />
+      </div>
+      {/* Color overlay */}
+      <motion.div animate={{ opacity: hovered ? 0.7 : 0.82 }}
+        style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${m.color} 0%, ${m.color}cc 30%, ${m.color}44 70%, transparent 100%)` }} />
+      {/* Ghost year */}
+      <div style={{ position: 'absolute', top: '-20px', right: '-10px', fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '110px', lineHeight: 1, color: 'transparent', WebkitTextStroke: `1px ${m.accent}15`, letterSpacing: '-0.06em', pointerEvents: 'none' }}>
+        {m.period.split('–')[0].split('—')[0].trim()}
+      </div>
+      {/* Text */}
+      <div style={{ position: 'relative', zIndex: 2, padding: '32px' }}>
+        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', letterSpacing: '0.2em', color: `${m.accent}80`, marginBottom: '10px' }}>
+          {m.period} — {m.origin}
+        </div>
+        <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 3vw, 32px)', letterSpacing: '-0.03em', color: m.accent, lineHeight: 1.05, marginBottom: '10px' }}>
+          {m.name}
+        </div>
+        <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '13px', lineHeight: 1.5, color: `${m.accent}70`, fontWeight: 300 }}>
+          {m.tagline}
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -57,6 +84,8 @@ export function MovementPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const movement = getMovementById(id || '');
+  const heroImage = useMovementImage(id || '');
+  const gallery = useMovementGallery(id || '');
 
   if (!movement) return (
     <div style={{ background: '#0A0A0A', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -178,6 +207,12 @@ export function MovementPage() {
         <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 4vw, 52px)', lineHeight: 1.1, letterSpacing: '-0.03em', color: '#F5F5F0', maxWidth: '80%' }}>
           {movement.legacy}
         </div>
+      </section>
+
+      {/* GALLERY */}
+      <section style={{ background: '#111', padding: '12vh 6vw' }}>
+        <SectionLabel text="VISUAL ARCHIVE" />
+        <MuseumGallery gallery={gallery} accentColor={movement.color} />
       </section>
 
       {/* RELATED ARTIFACTS */}

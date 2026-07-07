@@ -40,6 +40,7 @@ export function Nav() {
     { label: 'DESIGNERS', path: '/designers' },
     { label: 'MOVEMENTS', path: '/movements' },
     { label: 'TIMELINE', path: '/timeline' },
+    { label: 'SEARCH', path: '/search' },
   ];
 
   return (

@@ -7,6 +7,7 @@ import './index.css';
 // Data
 import { artifacts } from './data/artifacts';
 import { designers } from './data/designers';
+import { techniques } from './data/manufacturing';
 
 // Pages
 import ArtifactPage from './pages/ArtifactPage';
@@ -15,10 +16,14 @@ import { DesignersIndex, DesignerPage } from './pages/DesignerPages';
 import { MovementsIndex, MovementPage } from './pages/MovementPages';
 import TimelinePage from './pages/TimelinePage';
 import { MaterialsIndex, MaterialPage } from './pages/MaterialPages';
+import { ManufacturingIndex, TechniquePage } from './pages/ManufacturingPages';
+import SearchPage from './pages/SearchPage';
 
 // Shared UI
 import { Cursor, Nav } from './components/UI';
 import ScrollToTop from './components/ScrollToTop';
+import MuseumImageComponent from './components/MuseumImage';
+import { useMovementImage as useMovementImageHook } from './hooks/useImage';
 
 // ── Daily object (from real data) ──────────────────────────
 const FEATURED_IDS = [
@@ -439,8 +444,59 @@ function ManifestoChapter() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// NAV CHAPTERS — Archive entry points
+// MOVEMENT IMAGE STRIP (homepage chapter)
 // ─────────────────────────────────────────────────────────────
+function MovementStrip() {
+  const navigate = useNavigate();
+  const featured = [
+    { id: 'bauhaus', label: 'Bauhaus', period: '1919–1933' },
+    { id: 'mid-century-modern', label: 'Mid-Century', period: '1945–1969' },
+    { id: 'scandinavian-modern', label: 'Scandinavian', period: '1930–1970' },
+    { id: 'italian-radical-design', label: 'Italian Radical', period: '1960–1985' },
+    { id: 'memphis-milano', label: 'Memphis', period: '1981–1988' },
+  ];
+
+  return (
+    <section style={{ background: '#0A0A0A', padding: '14vh 0 0' }}>
+      <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+        style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', letterSpacing: '0.25em', color: 'rgba(245,245,240,0.28)', marginBottom: '6vh', paddingLeft: '6vw' }}>
+        CHAPTER 05 — MOVEMENTS
+      </motion.div>
+      <div style={{ display: 'flex', overflowX: 'auto', gap: '2px', paddingBottom: '0' }}>
+        {featured.map((m, i) => (
+          <MovementCard key={m.id} id={m.id} label={m.label} period={m.period} index={i} onClick={() => navigate(`/movements/${m.id}`)} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MovementCard({ id, label, period, index, onClick }: { id: string; label: string; period: string; index: number; onClick: () => void }) {
+  const img = useMovementImageHook(id);
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+      transition={{ delay: index * 0.08, duration: 0.7 }}
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ flexShrink: 0, width: '280px', height: '380px', position: 'relative', overflow: 'hidden', cursor: 'none' }}
+    >
+      <MuseumImageComponent image={img} aspect="3/4" fit="cover" accentColor="#FF4D00" style={{ width: '100%', height: '100%' }} />
+      <motion.div
+        animate={{ opacity: hovered ? 1 : 0.7 }}
+        style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 60%, transparent 100%)' }}
+      />
+      <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px' }}>
+        <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.2vw, 26px)', letterSpacing: '-0.03em', color: '#F5F5F0', lineHeight: 1, marginBottom: '6px' }}>{label}</div>
+        <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '10px', letterSpacing: '0.15em', color: 'rgba(245,245,240,0.45)' }}>{period}</div>
+      </div>
+      <motion.div animate={{ opacity: hovered ? 1 : 0 }} style={{ position: 'absolute', top: '20px', right: '20px', color: '#FF4D00', fontSize: '20px' }}>→</motion.div>
+    </motion.div>
+  );
+}
 function ArchiveNav() {
   const navigate = useNavigate();
   const sections = [
@@ -449,6 +505,8 @@ function ArchiveNav() {
     { label: 'MOVEMENTS', sub: '9 eras of design history', path: '/movements', color: '#0A0A0A', bg: '#E8FF00' },
     { label: 'TIMELINE', sub: 'From 1860 to now', path: '/timeline', color: '#F5F5F0', bg: '#111' },
     { label: 'MATERIALS', sub: '8 essential materials', path: '/materials', color: '#F5F5F0', bg: '#6A6A6A' },
+    { label: 'PROCESS', sub: `${techniques.length} manufacturing techniques`, path: '/manufacturing', color: '#FF4D00', bg: '#1a1a1a' },
+    { label: 'SEARCH', sub: 'Find anything in the archive', path: '/search', color: '#0A0A0A', bg: '#FF4D00' },
   ];
 
   return (
@@ -525,9 +583,11 @@ function HomePage() {
       <VoidChapter />
       <CollectionChapter />
       <ManifestoChapter />
+      <MovementStrip />
       <QuoteChapter quote={QUOTES[2]} index={2} />
       <ArchiveNav />
       <QuoteChapter quote={QUOTES[3]} index={3} />
+      <QuoteChapter quote={QUOTES[4]} index={4} />
       <FooterChapter />
     </>
   );
@@ -595,6 +655,9 @@ export default function App() {
               <Route path="/timeline" element={<TimelinePage />} />
               <Route path="/materials" element={<MaterialsIndex />} />
               <Route path="/materials/:id" element={<MaterialPage />} />
+              <Route path="/manufacturing" element={<ManufacturingIndex />} />
+              <Route path="/manufacturing/:id" element={<TechniquePage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="*" element={
                 <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
                   <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 'clamp(80px, 20vw, 280px)', letterSpacing: '-0.06em', color: '#FF4D00', lineHeight: 1 }}>404</div>

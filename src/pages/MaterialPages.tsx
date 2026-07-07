@@ -3,10 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { materials, getMaterialById } from '../data/materials';
 import { BackBtn, Marquee, SectionLabel, Tag } from '../components/UI';
+import MuseumImage from '../components/MuseumImage';
+import { useMaterialImage } from '../hooks/useImage';
+import { imageService } from '../services/imageService';
 
 // ── INDEX ─────────────────────────────────────────────────
 export function MaterialsIndex() {
   const navigate = useNavigate();
+  React.useEffect(() => { imageService.prefetch('material', materials.map(m => m.id)); }, []);
   return (
     <div style={{ background: '#0A0A0A', minHeight: '100vh' }}>
       <section style={{ padding: '18vh 6vw 8vh', position: 'relative', overflow: 'hidden' }}>
@@ -50,6 +54,7 @@ export function MaterialPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const material = getMaterialById(id || '');
+  const heroImage = useMaterialImage(id || '');
 
   if (!material) return (
     <div style={{ background: '#0A0A0A', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -97,6 +102,21 @@ export function MaterialPage() {
 
       {/* MARQUEE */}
       <Marquee text={`${material.name} — ${material.era} — ${material.tagline}`} bg="#0A0A0A" fg={material.color} />
+
+      {/* HERO IMAGE */}
+      {heroImage.url && (
+        <section style={{ background: '#111', padding: '0' }}>
+          <MuseumImage
+            image={heroImage}
+            aspect="21/9"
+            fit="cover"
+            position="center"
+            showCredit
+            accentColor={material.color}
+            style={{ width: '100%' }}
+          />
+        </section>
+      )}
 
       {/* HISTORY + MANUFACTURING */}
       <section style={{ background: '#0A0A0A', padding: '14vh 6vw', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8vw' }}>
